@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzq.life.mapper.ext.BusBillExtMapper">
+
+	<resultMap id="VOBaseResultMap" extends="com.lzq.life.mapper.BusBillMapper.BaseResultMap" type="com.lzq.life.vo.BillVO">
+		<result column="cdate_format" jdbcType="VARCHAR" property="cdateFormat" />
+		<collection property="tags" ofType="com.lzq.life.vo.TagVO">
+			<id column="tag_id" jdbcType="BIGINT" property="tagId" />
+			<result column="bill_id" jdbcType="BIGINT" property="billId" />
+			<result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+			<result column="tag_type" jdbcType="VARCHAR" property="tagType" />
+		</collection>
+	</resultMap>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="VOBaseResultMap">
+		select
+		a.bill_id, a.cdate, a.money, a.`desc`, a.catalog_id,
+		a.`catalog_name`, a.who,
+		a.district_id, a.district_name, a.img,c.tag_name,c.tag_id,c.tag_type
+		from bus_bill a
+		left join bus_bill_tag b
+		on a.bill_id = b.bill_id
+		left join bas_tag c on
+		c.tag_id = b.tag_id
+		where a.bill_id = #{billId,jdbcType=BIGINT}
+	</select>
+
+
+	<select id="selectBill" resultMap="VOBaseResultMap">
+		select a.bill_id,
+		a.money,a.catalog_name ,DATE_FORMAT(a.cdate,'%Y-%m-%d') cdate_format,
+		c.tag_name,c.tag_id,c.tag_type
+		from bus_bill a
+		left join bus_bill_tag b
+		on a.bill_id = b.bill_id
+		left join bas_tag c on c.tag_id = b.tag_id
+		order by a.cdate desc
+	</select>
+
+</mapper>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzq.life.mapper.BasDistrictMapper">
+  <resultMap id="BaseResultMap" type="com.lzq.life.entity.BasDistrict">
+    
+    <!-- 主键自增 -->
+    <id column="district_id" jdbcType="INTEGER" property="districtId" />
+    
+    <!-- 父类id -->
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    
+    <!-- 城市的名字 -->
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    
+    <!-- 城市的类型，0是国，1是省，2是市，3是区 -->
+    <result column="type" jdbcType="INTEGER" property="type" />
+    
+    <!-- 地区所处的层级 -->
+    <result column="hierarchy" jdbcType="INTEGER" property="hierarchy" />
+    
+    <!-- 层级序列 -->
+    <result column="district_sqe" jdbcType="VARCHAR" property="districtSqe" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    district_id, pid, district_name, `type`, `hierarchy`, district_sqe
+  </sql>
+  <select id="selectByExample" parameterType="com.lzq.life.entity.BasDistrictExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bas_district
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bas_district
+    where district_id = #{districtId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bas_district
+    where district_id = #{districtId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lzq.life.entity.BasDistrictExample">
+    delete from bas_district
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert">
+    insert into bas_district (district_id, pid, district_name, 
+      `type`, `hierarchy`, district_sqe
+      )
+    values (#{districtId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{hierarchy,jdbcType=INTEGER}, #{districtSqe,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective">
+    insert into bas_district
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="hierarchy != null">
+        `hierarchy`,
+      </if>
+      <if test="districtSqe != null">
+        district_sqe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="districtId != null">
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="hierarchy != null">
+        #{hierarchy,jdbcType=INTEGER},
+      </if>
+      <if test="districtSqe != null">
+        #{districtSqe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bas_district
+    <set>
+      <if test="record.districtId != null">
+        district_id = #{record.districtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.districtName != null">
+        district_name = #{record.districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.hierarchy != null">
+        `hierarchy` = #{record.hierarchy,jdbcType=INTEGER},
+      </if>
+      <if test="record.districtSqe != null">
+        district_sqe = #{record.districtSqe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bas_district
+    set district_id = #{record.districtId,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      district_name = #{record.districtName,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=INTEGER},
+      `hierarchy` = #{record.hierarchy,jdbcType=INTEGER},
+      district_sqe = #{record.districtSqe,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective">
+    update bas_district
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="hierarchy != null">
+        `hierarchy` = #{hierarchy,jdbcType=INTEGER},
+      </if>
+      <if test="districtSqe != null">
+        district_sqe = #{districtSqe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where district_id = #{districtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey">
+    update bas_district
+    set pid = #{pid,jdbcType=INTEGER},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=INTEGER},
+      `hierarchy` = #{hierarchy,jdbcType=INTEGER},
+      district_sqe = #{districtSqe,jdbcType=VARCHAR}
+    where district_id = #{districtId,jdbcType=INTEGER}
+  </update>
+</mapper>
