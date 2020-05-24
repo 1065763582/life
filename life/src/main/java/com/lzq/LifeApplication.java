@@ -1,4 +1,4 @@
-package com.lzq.life;
+package com.lzq;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
