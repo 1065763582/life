@@ -3,6 +3,7 @@
 <mapper namespace="com.lzq.life.mapper.ext.BusBillExtMapper">
 
 	<resultMap id="VOBaseResultMap" extends="com.lzq.life.mapper.BusBillMapper.BaseResultMap" type="com.lzq.life.vo.BillVO">
+		<id column="bill_id" jdbcType="BIGINT" property="billId" />
 		<result column="cdate_format" jdbcType="VARCHAR" property="cdateFormat" />
 		<collection property="tags" ofType="com.lzq.life.vo.TagVO">
 			<id column="tag_id" jdbcType="BIGINT" property="tagId" />
@@ -26,14 +27,27 @@
 	</select>
 
 
-	<select id="selectBill" resultMap="VOBaseResultMap">
+	<select id="selectBill" resultMap="VOBaseResultMap" parameterType="com.lzq.life.vo.BillVO">
 		select a.bill_id,
 		a.money,a.catalog_name ,DATE_FORMAT(a.cdate,'%Y-%m-%d') cdate_format,
 		c.tag_name,c.tag_id,c.tag_type
-		from bus_bill a
+		from bus_bill a 
 		left join bus_bill_tag b
 		on a.bill_id = b.bill_id
 		left join bas_tag c on c.tag_id = b.tag_id
+		where 1 = 1 
+		<if test="vo.tagId != null">
+		and c.tag_id = #{vo.tagId}
+		</if>
+		<if test="vo.catalogId != null">
+		and a.catalog_Id = #{vo.catalogId}
+		</if>
+		<if test="vo.startDate != null">
+		and a.cdate &gt;= #{vo.startDate}
+		</if>
+		<if test="vo.endDate != null">
+		and a.cdate &lt;= #{vo.endDate}
+		</if>
 		order by a.cdate desc
 	</select>
 

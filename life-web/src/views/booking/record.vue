@@ -96,7 +96,7 @@
           money: 0,
           desc: '',
           catalog: '',
-          districtId: '',
+          districtId: 3409,
           brandId: '',
           tags: []
         }

@@ -1,6 +1,7 @@
 package com.lzq.life.Api;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public interface BillApi {
 	public BaseResponse<?> save(@RequestBody BillVO bill);
 
 	@GetMapping
-	public BaseResponse<List<BillVO>> getBills();
+	public BaseResponse<List<BillVO>> getBills(BillVO vo);
 
 	@GetMapping("/{id}")
 	public BaseResponse<BillVO> getBill(@PathVariable Long id);

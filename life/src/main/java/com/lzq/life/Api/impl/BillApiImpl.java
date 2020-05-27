@@ -1,6 +1,7 @@
 package com.lzq.life.Api.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,8 +32,8 @@ public class BillApiImpl implements BillApi {
 		return ResponseFactroy.createSuccessResponse();
 	}
 
-	public BaseResponse<List<BillVO>> getBills() {
-		List<BillVO> list = billService.getBills();
+	public BaseResponse<List<BillVO>> getBills(BillVO vo) {
+		List<BillVO> list = billService.getBills(vo);
 		return ResponseFactroy.createSuccessResponse(list);
 	}
 

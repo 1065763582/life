@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lzq.life.vo.PageInfo;
 import com.lzq.echarts.Option;
 import com.lzq.life.entity.BasCatalog;
 import com.lzq.life.entity.BasDistrict;
-import com.lzq.life.entity.BusBillExample;
 import com.lzq.life.entity.BusBillTag;
 import com.lzq.life.entity.BusBillTagExample;
 import com.lzq.life.manager.BillManager;
@@ -75,10 +75,9 @@ public class BillService {
 		}
 	}
 
-	public List<BillVO> getBills() {
-		BusBillExample example = new BusBillExample();
-		example.setOrderByClause("cdate desc");
-		return billMapper.selectBill();
+	public List<BillVO> getBills(BillVO vo) {
+		List<BillVO> voList = billMapper.selectBill(vo);
+		return voList;
 	}
 
 	public BillVO getBill(Long id) {

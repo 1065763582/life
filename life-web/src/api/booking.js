@@ -32,11 +32,11 @@ export function saveBill(data) {
   })
 }
 
-export function getBills(data) {
+export function getBills(params) {
   return request({
     url: 'http://192.168.31.223:8080/api/bill',
     method: 'get',
-    data
+    params
   })
 }
 

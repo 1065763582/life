@@ -30,4 +30,17 @@ public class BillVO extends BusBill {
 
 	@JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime cdate;
+
+	// ---------- 用于表格界面 搜索功能传参-----------
+	private Long tagId;
+
+	private String startDate;
+	
+	private String endDate;
+	
+	private Integer pageNum;
+	
+	private Integer pageSize;
+
+	// ---------- 用于表格界面 搜索功能传参 END-----------
 }
