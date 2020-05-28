@@ -1,5 +1,6 @@
 package com.lzq.life.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.lzq.echarts.Option;
@@ -17,6 +18,7 @@ import com.lzq.life.manager.WealthManager;
 @Component
 public class WealthService {
 
+	@Autowired
 	private WealthManager wealthManager;
 
 	public Option getWealthChartPie() throws Exception {

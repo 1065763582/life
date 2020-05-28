@@ -95,42 +95,52 @@ export const constantRoutes = [{
       icon: 'form'
     },
     children: [{
-      path: '/bill',
-      name: 'Bill',
-      component: () => import('@/views/booking/index'),
-      meta: {
-        title: 'Bill',
-        icon: 'form'
-      },
-      children: [{
-          path: 'record',
-          name: 'Bill Record',
-          component: () => import('@/views/booking/record'),
-          meta: {
-            title: 'Bill Record',
-            icon: 'form'
-          }
-        },
-        {
-          path: 'table',
-          name: 'Bill Table',
-          component: () => import('@/views/booking/table'),
-          meta: {
-            title: 'Bill Table',
-            icon: 'table'
-          }
-        },
-        {
-          path: 'housecharts',
-          name: 'House Chart',
-          component: () => import('@/views/booking/chart'),
-          meta: {
-            title: 'House Chart',
-            icon: 'table'
-          }
+        path: 'myWealth',
+        component: () => import('@/views/wealth/myWealth'), // Parent router-view
+        name: 'myWealth',
+        meta: {
+          title: 'myWealth',
+          icon: 'form'
         }
-      ]
-    }]
+      },
+      {
+        path: '/bill',
+        name: 'Bill',
+        component: () => import('@/views/booking/index'),
+        meta: {
+          title: 'Bill',
+          icon: 'form'
+        },
+        children: [{
+            path: 'record',
+            name: 'Bill Record',
+            component: () => import('@/views/booking/record'),
+            meta: {
+              title: 'Bill Record',
+              icon: 'form'
+            }
+          },
+          {
+            path: 'table',
+            name: 'Bill Table',
+            component: () => import('@/views/booking/table'),
+            meta: {
+              title: 'Bill Table',
+              icon: 'table'
+            }
+          },
+          {
+            path: 'housecharts',
+            name: 'House Chart',
+            component: () => import('@/views/booking/chart'),
+            meta: {
+              title: 'House Chart',
+              icon: 'table'
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     path: '/nested',

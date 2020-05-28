@@ -48,7 +48,7 @@
       return {
         catalogId: '',
         tagId: '',
-        dateRange: [],
+        dateRange: [moment().subtract(1, 'months').format('YYYY-MM-DD'), moment().add(1, 'days').format('YYYY-MM-DD')],
         tableData: [],
         catalogOptions: [],
         districtOptions: [],
