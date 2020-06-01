@@ -13,7 +13,7 @@
         value-format="yyyy-MM-dd" @change="dataRangeChange">
       </el-date-picker>
     </div>
-    <el-table :data="tableData" style="width: 100%" @row-dblclick="editbill" height="680">
+    <el-table :data="tableData" style="width: 100%" @row-dblclick="editbill" height="590">
       <el-table-column label="序号" type="index" show-overflow-tooltip width="50">
       </el-table-column>
       <el-table-column prop="cdateFormat" label="日期">

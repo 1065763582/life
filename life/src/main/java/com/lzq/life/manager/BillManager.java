@@ -47,7 +47,7 @@ public class BillManager {
 			String sql = getHouseBarSql(start, end);
 			PreparedStatement state = c.prepareStatement(sql);
 			ResultSet rs = state.executeQuery();
-			op = EchartsOptionFactory.createOption("HOUSE", rs);
+			op = EchartsOptionFactory.createOption("房租总计", rs);
 			op.getSeries().stream().filter(seri -> seri.getType().equals(SeriesType.line)).findFirst().ifPresent(
 					seri -> seri.markLine(new MarkLine().lineStyle(new LineStyle().color("#C65A5A"))
 							.data(new Data().type(MarkType.average).name("平均值"))));
@@ -84,7 +84,7 @@ public class BillManager {
 		totalSQL.FROM("(" + innsersql.toString() + ") c").GROUP_BY("c.catalog_name");
 
 		String result = "select t.* from ( (" + sql.toString() + ") union all (" + totalSQL.toString()
-				+ ") ) t ORDER BY FIELD(t.catalog_name, '房租','水','电','总计')";
+				+ ") ) t ORDER BY FIELD(t.catalog_name, '房租','水费','电费','家电','总计')";
 		log.info(result);
 		return result;
 	}
@@ -95,7 +95,7 @@ public class BillManager {
 			String sql = getHouseLineSql(start, end);
 			PreparedStatement state = c.prepareStatement(sql);
 			ResultSet rs = state.executeQuery();
-			op = EchartsOptionFactory.createOption("Property Fees", rs);
+			op = EchartsOptionFactory.createOption("物业", rs);
 		}
 		return op;
 	}
@@ -110,7 +110,7 @@ public class BillManager {
 					+ colNmae + "'");
 		}
 		sql.FROM("bus_bill a").LEFT_OUTER_JOIN("bas_catalog b on a.catalog_id = b.catalog_id").WHERE("b.parent_id = 6")
-				.WHERE("a.cdate >= '" + start + "'").WHERE("a.catalog_id <> 21").WHERE("a.cdate <= '" + end + "'")
+				.WHERE("a.cdate >= '" + start + "'").WHERE("a.catalog_id <> 21").WHERE("a.catalog_id <> 28").WHERE("a.cdate <= '" + end + "'")
 				.GROUP_BY("a.catalog_name");
 		String result = sql.toString();
 		log.info(result);
