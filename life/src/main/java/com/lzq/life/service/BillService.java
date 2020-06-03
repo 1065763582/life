@@ -61,6 +61,7 @@ public class BillService {
 			billtagexample.createCriteria().andBillIdEqualTo(bill.getBillId());
 			billTagMapper.deleteByExample(billtagexample);
 		} else {
+			bill.setWho("2");
 			billMapper.insert(bill);
 		}
 		if (bill.getTagIds() != null && bill.getTagIds().length > 0) {
@@ -104,6 +105,11 @@ public class BillService {
 
 	public Option getHouseChartPie(String start, String end) throws Exception {
 		Option option = billManager.getHouseChartPie(start, end);
+		return option;
+	}
+
+	public Option getBillWeekChartLine(String start, String end) throws Exception {
+		Option option = billManager.getBillWeekChartLine(start, end);
 		return option;
 	}
 

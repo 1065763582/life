@@ -137,6 +137,15 @@ export const constantRoutes = [{
               title: 'House Chart',
               icon: 'table'
             }
+          },
+          {
+            path: 'billcharts',
+            name: 'Bill Chart',
+            component: () => import('@/views/booking/billChart'),
+            meta: {
+              title: 'Bill Chart',
+              icon: 'table'
+            }
           }
         ]
       }

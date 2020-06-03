@@ -70,3 +70,11 @@ export function getHouseChartPie(params) {
     params
   })
 }
+
+export function getBillWeekChartLine(params) {
+  return request({
+    url: 'http://localhost:8080/api/bill/billChart/line',
+    method: 'get',
+    params
+  })
+}

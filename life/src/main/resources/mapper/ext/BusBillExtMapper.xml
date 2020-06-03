@@ -50,5 +50,9 @@
 		</if>
 		order by a.cdate desc
 	</select>
+	
+	<select id="selectBillWeekRange" resultType="java.lang.String">
+	 SELECT date_format(a.cdate, '%x%v') as wek from bus_bill a where a.cdate &gt;= #{start} and a.cdate &lt; #{end} GROUP BY wek;
+	</select>
 
 </mapper>

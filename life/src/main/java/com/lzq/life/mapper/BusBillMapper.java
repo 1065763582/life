@@ -6,23 +6,25 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BusBillMapper {
-    int deleteByExample(BusBillExample example);
+	int deleteByExample(BusBillExample example);
 
-    int deleteByPrimaryKey(Long billId);
+	int deleteByPrimaryKey(Long billId);
 
-    int insert(BusBill record);
+	int insert(BusBill record);
 
-    int insertSelective(BusBill record);
+	int insertSelective(BusBill record);
 
-    List<BusBill> selectByExample(BusBillExample example);
+	List<BusBill> selectByExample(BusBillExample example);
 
-    BusBill selectByPrimaryKey(Long billId);
+	BusBill selectByPrimaryKey(Long billId);
 
-    int updateByExampleSelective(@Param("record") BusBill record, @Param("example") BusBillExample example);
+	int updateByExampleSelective(@Param("record") BusBill record, @Param("example") BusBillExample example);
 
-    int updateByExample(@Param("record") BusBill record, @Param("example") BusBillExample example);
+	int updateByExample(@Param("record") BusBill record, @Param("example") BusBillExample example);
 
-    int updateByPrimaryKeySelective(BusBill record);
+	int updateByPrimaryKeySelective(BusBill record);
 
-    int updateByPrimaryKey(BusBill record);
+	int updateByPrimaryKey(BusBill record);
+
+	List<String> selectBillWeekRange(@Param("start") String start, @Param("end") String end);
 }

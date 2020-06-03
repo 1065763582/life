@@ -59,4 +59,10 @@ public class BillApiImpl implements BillApi {
 		Option option = billService.getHouseChartPie(start, end);
 		return ResponseFactroy.createSuccessResponse(option);
 	}
+
+	@Override
+	public BaseResponse<Option> getBillWeekChartLine(String start, String end) throws Exception {
+		Option option = billService.getBillWeekChartLine(start, end);
+		return ResponseFactroy.createSuccessResponse(option);
+	}
 }
