@@ -26,5 +26,4 @@ public interface BusBillMapper {
 
 	int updateByPrimaryKey(BusBill record);
 
-	List<String> selectBillWeekRange(@Param("start") String start, @Param("end") String end);
 }

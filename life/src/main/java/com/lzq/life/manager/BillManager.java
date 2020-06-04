@@ -3,7 +3,6 @@ package com.lzq.life.manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import com.lzq.echarts.data.Data;
 import com.lzq.echarts.factroy.EchartsOptionFactory;
 import com.lzq.echarts.series.MarkLine;
 import com.lzq.echarts.style.LineStyle;
-import com.lzq.life.mapper.BusBillMapper;
+import com.lzq.life.mapper.ext.BusBillExtMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +45,7 @@ public class BillManager {
 
 	@Autowired
 	@Qualifier("busBillExtMapper")
-	private BusBillMapper billMapper;
+	private BusBillExtMapper billMapper;
 
 	public Option getHouseChartBar(String start, String end) throws Exception {
 		Option op = null;
@@ -162,10 +161,10 @@ public class BillManager {
 		return list;
 	}
 
-	public Option getBillWeekChartLine(String start, String end) throws Exception {
+	public Option getBillWeekChartBar(String start, String end) throws Exception {
 		Option op = null;
 		try (Connection c = dataSource.getConnection()) {
-			String sql = getBillWeekChartLineSql(start, end);
+			String sql = getBillWeekChartBarSql(start, end);
 			PreparedStatement state = c.prepareStatement(sql);
 			ResultSet rs = state.executeQuery();
 			op = EchartsOptionFactory.createOption("每周消费", rs);
@@ -173,13 +172,40 @@ public class BillManager {
 		return op;
 	}
 
-	private String getBillWeekChartLineSql(String start, String end) {
+	private String getBillWeekChartBarSql(String start, String end) {
 		List<String> weekRange = billMapper.selectBillWeekRange(start, end);
 		// 按时间和类型统计
 		SQL sql = new SQL().SELECT("a.who catalog_name, null stack_name, 'BAR' type_name");
 		for (String week : weekRange) {
 			String colNmae = "xAxis_" + week;
 			sql.SELECT("sum(case date_format(a.cdate, '%x%v') when '" + week + "' then a.money else 0 end) '" + colNmae
+					+ "'");
+		}
+		sql.FROM("bus_bill a").LEFT_OUTER_JOIN("bas_catalog b on a.catalog_id = b.catalog_id")
+				.WHERE("a.cdate >= '" + start + "'").WHERE("a.cdate <= '" + end + "'").GROUP_BY("a.who");
+		String result = sql.toString();
+		log.info(result);
+		return result;
+	}
+
+	public Option getBillMonthChartBar(String start, String end) throws Exception {
+		Option op = null;
+		try (Connection c = dataSource.getConnection()) {
+			String sql = getBillMonthChartBarSql(start, end);
+			PreparedStatement state = c.prepareStatement(sql);
+			ResultSet rs = state.executeQuery();
+			op = EchartsOptionFactory.createOption("每月消费", rs);
+		}
+		return op;
+	}
+	
+	private String getBillMonthChartBarSql(String start, String end) {
+		List<String> weekRange = billMapper.selectBillMonthRange(start, end);
+		// 按时间和类型统计
+		SQL sql = new SQL().SELECT("a.who catalog_name, null stack_name, 'BAR' type_name");
+		for (String week : weekRange) {
+			String colNmae = "xAxis_" + week;
+			sql.SELECT("sum(case date_format(a.cdate, '%Y%m') when '" + week + "' then a.money else 0 end) '" + colNmae
 					+ "'");
 		}
 		sql.FROM("bus_bill a").LEFT_OUTER_JOIN("bas_catalog b on a.catalog_id = b.catalog_id")

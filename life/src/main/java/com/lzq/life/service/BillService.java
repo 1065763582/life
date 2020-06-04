@@ -108,8 +108,13 @@ public class BillService {
 		return option;
 	}
 
-	public Option getBillWeekChartLine(String start, String end) throws Exception {
-		Option option = billManager.getBillWeekChartLine(start, end);
+	public Option getBillWeekChartBar(String start, String end) throws Exception {
+		Option option = billManager.getBillWeekChartBar(start, end);
+		return option;
+	}
+
+	public Option getBillMonthChartBar(String start, String end) throws Exception {
+		Option option = billManager.getBillMonthChartBar(start, end);
 		return option;
 	}
 

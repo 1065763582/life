@@ -6,14 +6,20 @@
       </el-date-picker>
     </el-row>
     <el-row style="margin-top: 2%;">
-      <div id="myChartBar" class="chart" style="height: 300px;width:100%"></div>
+      <el-col :span="12">
+        <div id="weekBar" class="chart" style="height: 300px;width:100%"></div>
+      </el-col>
+      <el-col :span="12">
+        <div id="monthBar" class="chart" style="height: 300px;width:100%"></div>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
   import {
-    getBillWeekChartLine
+    getBillWeekChartBar,
+    getBillMonthChartBar
   } from '@/api/booking.js'
   import echarts from 'echarts'
   import moment from 'moment'
@@ -37,11 +43,17 @@
         this.setCharts(this.dateRange[0], this.dateRange[1]);
       },
       setCharts(start, end) {
-        getBillWeekChartLine({
+        getBillWeekChartBar({
           start,
           end
         }).then(response => {
-          this.initCharts(response.data, 'myChartBar');
+          this.initCharts(response.data, 'weekBar');
+        })
+        getBillMonthChartBar({
+          start,
+          end
+        }).then(response => {
+          this.initCharts(response.data, 'monthBar');
         })
       }
     }

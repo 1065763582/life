@@ -61,8 +61,14 @@ public class BillApiImpl implements BillApi {
 	}
 
 	@Override
-	public BaseResponse<Option> getBillWeekChartLine(String start, String end) throws Exception {
-		Option option = billService.getBillWeekChartLine(start, end);
+	public BaseResponse<Option> getBillWeekChartBar(String start, String end) throws Exception {
+		Option option = billService.getBillWeekChartBar(start, end);
+		return ResponseFactroy.createSuccessResponse(option);
+	}
+
+	@Override
+	public BaseResponse<Option> getBillMonthChartBar(String start, String end) throws Exception {
+		Option option = billService.getBillMonthChartBar(start, end);
 		return ResponseFactroy.createSuccessResponse(option);
 	}
 }

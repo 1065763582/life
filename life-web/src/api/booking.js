@@ -78,3 +78,19 @@ export function getBillWeekChartLine(params) {
     params
   })
 }
+
+export function getBillWeekChartBar(params) {
+  return request({
+    url: 'http://localhost:8080/api/bill/billChart/weekbar',
+    method: 'get',
+    params
+  })
+}
+
+export function getBillMonthChartBar(params) {
+  return request({
+    url: 'http://localhost:8080/api/bill/billChart/monthbar',
+    method: 'get',
+    params
+  })
+}

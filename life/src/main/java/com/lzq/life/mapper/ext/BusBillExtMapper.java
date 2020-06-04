@@ -21,4 +21,8 @@ public interface BusBillExtMapper extends BusBillMapper {
 	List<BillVO> selectBill(@Param("vo") BillVO vo);
 
 	BillVO selectByPrimaryKey(Long billId);
+
+	List<String> selectBillWeekRange(@Param("start") String start, @Param("end") String end);
+
+	List<String> selectBillMonthRange(@Param("start") String start, @Param("end") String end);
 }

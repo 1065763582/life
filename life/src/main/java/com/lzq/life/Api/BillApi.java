@@ -44,7 +44,9 @@ public interface BillApi {
 	@GetMapping("/houseChart/pie")
 	public BaseResponse<Option> getHouseChartPie(String start, String end) throws Exception;
 	
-	@GetMapping("/billChart/line")
-	public BaseResponse<Option> getBillWeekChartLine(String start, String end) throws Exception;
+	@GetMapping("/billChart/weekbar")
+	public BaseResponse<Option> getBillWeekChartBar(String start, String end) throws Exception;
 	
+	@GetMapping("/billChart/monthbar")
+	public BaseResponse<Option> getBillMonthChartBar(String start, String end) throws Exception;
 }

@@ -3,8 +3,6 @@ package com.lzq.life.manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javax.sql.DataSource;
 
 import org.apache.ibatis.jdbc.SQL;
@@ -12,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.lzq.echarts.Option;
-import com.lzq.echarts.code.RoseType;
 import com.lzq.echarts.factroy.EchartsOptionFactory;
-import com.lzq.echarts.series.Pie;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
