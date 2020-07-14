@@ -1,12 +1,17 @@
 <template>
   <div class="app-container">
-    <div id="myChartPip" class="chart" style="height: 600px;width:100%;"></div>
+    <el-row style="margin-top: 2%;">
+      <div id="myChartPip" class="chart" style="height: 600px;width:100%;"></div>
+    </el-row>
+    <el-row style="margin-top: 2%;">
+    </el-row>
   </div>
 </template>
 
 <script>
   import {
     getWealthChartPie
+    
   } from '@/api/wealth.js'
   import echarts from 'echarts'
   import moment from 'moment'
